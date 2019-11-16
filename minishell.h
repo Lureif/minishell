@@ -24,10 +24,19 @@ int	ret_env_var_index(char **env, char *var, int initial_pos);
 void	ret_env_var(char **env_var_name, int var_len);
 
 /*
-**	Memory management functions
+**	Tab functions
 */
 
-void	ft_free_d_tab(void **d_tab);
+void 	free_tab(void **tab);
+int	tab_size(const void **tab);
+
+/*
+**	shell utils
+*/
+
+bool	ft_process_launch(char *bin_paths, char ***args, char ***envp);
+void	ft_cleanup(char **line, char ***tab);
+void	ft_print_prompt(void);
 
 /*
 **	Builtin functions
@@ -38,9 +47,3 @@ bool	ft_cd(char **dir);
 bool	ft_echo(char **str);
 bool	ft_help(__attribute__((unused)) char **param);
 bool	ft_clear(__attribute__((unused)) char **param);
-
-/*
-**	Main functions
-*/
-
-void	ft_print_prompt(void);
