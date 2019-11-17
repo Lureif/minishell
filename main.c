@@ -20,7 +20,7 @@ int		main(__attribute__((unused)) int ac, __attribute__((unused)) char **av, cha
 	char	**input;
 
 	index = ret_env_var_index(envp, "PATH", 0);
-	ret_env_var(&envp[index], ft_strlen("PATH"));
+	trim_env_var(&envp[index]);
 	while (420)
 	{
 		ft_print_prompt();

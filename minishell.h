@@ -21,7 +21,7 @@ typedef struct		s_env
 */
 
 int	ret_env_var_index(char **env, char *var, int initial_pos);
-void	ret_env_var(char **env_var_name, int var_len);
+bool	trim_env_var(char **env_var_name);
 
 /*
 **	Tab functions
