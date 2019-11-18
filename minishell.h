@@ -17,10 +17,16 @@ typedef struct		s_env
 }			t_env;
 
 /*
+**	fun functions
+*/
+
+void	ft_print_welcome_banner(void);
+
+/*
 **	Environement related functions
 */
 
-int	ret_env_var_index(char **env, char *var, int initial_pos);
+int		ret_env_var_index(char **env, char *var, int initial_pos);
 bool	trim_env_var(char **env_var_name);
 
 /*
@@ -28,7 +34,7 @@ bool	trim_env_var(char **env_var_name);
 */
 
 void 	free_tab(void **tab);
-int	tab_size(const void **tab);
+int		tab_size(const void **tab);
 
 /*
 **	shell utils

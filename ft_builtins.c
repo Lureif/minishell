@@ -6,7 +6,7 @@
 /*   By: brjorgen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/16 06:09:32 by brjorgen          #+#    #+#             */
-/*   Updated: 2019/11/16 06:09:43 by brjorgen         ###   ########.fr       */
+/*   Updated: 2019/11/18 17:02:35 by brjorgen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ bool	ft_exec_builtins(char **command)
 		if (ft_strcmp(builtin_names[i], command[0]) == 0)
 			return ((*ft_builtin_function[i])(command));		
 		i++;
-	}	
+	}
+	return (false);
 }
 
 bool	ft_cd(char **dir)
@@ -50,7 +51,7 @@ bool	ft_cd(char **dir)
 
 bool	ft_echo(char **str)
 {
-	ft_putstr_fd(str[1], 1);
+	ft_putendl_fd(str[1], 1);
 	return (true);
 }
 
@@ -65,8 +66,9 @@ bool	ft_clear(__attribute__((unused)) char **param)
 		buff[i] = '\n';
 		i++;
 	}
-	buff[i] == '\0';
+	buff[i] = '\0';
 	ft_putstr(buff);
+	return (true);
 }
 
 bool	ft_help(__attribute__((unused)) char **param)
@@ -84,4 +86,5 @@ bool	ft_help(__attribute__((unused)) char **param)
 		ft_putchar('\n');
 		i++;
 	}
+	return (true);
 }
