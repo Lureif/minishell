@@ -9,9 +9,14 @@
 **	Prints the prompt defined as SH_PROMPT in minishell.h
 */
 
+#define GREE "\x1B[32m"
+#define RESET "\033[0m"
+
 void	ft_print_prompt(void)
 {
+	ft_putstr_fd(GREE, 1);
 	ft_putstr_fd(SH_PROMPT, 1);
+	ft_putstr_fd(RESET, 1);
 }
 
 /*

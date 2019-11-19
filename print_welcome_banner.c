@@ -12,8 +12,6 @@
 
 #include "minishell.h"
 #define GREE "\x1B[32m"
-#define YELL "\x1B[33m"
-#define BLUE "\x1B[34m"
 #define MAGE "\x1B[35m"
 #define RESET "\033[0m"
 

@@ -53,12 +53,9 @@ bool	ft_parse_process_name(char **args)
 
 bool	ft_process_launch_path(char ***args, char ***envp)
 {
-	int exec;
-
-	exec = 0;
 	if (access(*args[0], R_OK) != -1)
 	{
-		exec = execve(*args[0], *args, *envp);
+		execve(*args[0], *args, *envp);
 		return (true);
 	}
 	else
