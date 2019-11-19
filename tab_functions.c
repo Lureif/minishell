@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tab_functions.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: brjorgen <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/18 18:20:56 by brjorgen          #+#    #+#             */
+/*   Updated: 2019/11/18 20:06:10 by brjorgen         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 /*
@@ -17,7 +29,7 @@ void	free_tab(void **tab)
 	while (tab[y])
 	{
 		free(tab[y]);
-		tab[y] = NULL; // to remove if weird mem errors occur
+		tab[y] = NULL;
 		y++;
 	}
 	free(tab);
@@ -32,7 +44,7 @@ void	free_tab(void **tab)
 **	returns size of 2d array.
 */
 
-int	tab_size(const void **tab)
+int tab_size(const void **tab)
 {
 	unsigned int	i;
 

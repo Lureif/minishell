@@ -6,7 +6,7 @@
 #    By: brjorgen <brjorgen@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/10 00:40:57 by brjorgen          #+#    #+#              #
-#    Updated: 2019/11/18 17:34:48 by brjorgen         ###   ########.fr        #
+#    Updated: 2019/11/18 20:34:24 by brjorgen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ SRC			    =			environement_functions.c \
 							tab_functions.c
 
 CC			= 		       	   gcc
-FLG			= 	 -Wall -Werror -Wextra #-g3  #-fsanitize=address
+FLG			= 	 -Wall -Werror -Wextra -g3  #-fsanitize=address
 LIB			= 	       -L ./libft -lft
 INC			=		     -I libft/
 OBJ			= 		  $(SRC:.c=.o)

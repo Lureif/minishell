@@ -1,0 +1,4 @@
+* what's left
+** TODO $ and ~ expansions
+** TODO tests
+
