@@ -3,4 +3,4 @@
 2. builtin tests
 3. add more ~AESTHETICS~
 4. Re-organize functions into different files (note: ft_builtins)
-5. write documentation for undocumented functions. (node: they're in ft_builtins)
+5. write documentation for undocumented functions. (note: they're in ft_builtins)
