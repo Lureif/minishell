@@ -6,7 +6,7 @@
 /*   By: brjorgen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 18:20:56 by brjorgen          #+#    #+#             */
-/*   Updated: 2019/11/18 20:06:10 by brjorgen         ###   ########.fr       */
+/*   Updated: 2019/12/10 00:22:36 by brjorgen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,17 @@
 
 void	free_tab(void **tab)
 {
-	unsigned int y;
+	void			**cpy;
 
-	y = 0;
-	while (tab[y])
+	cpy = tab;
+	while (*tab)
 	{
-		free(tab[y]);
-		tab[y] = NULL;
-		y++;
+		free(*tab);
+		*tab = NULL;
+		tab++;
 	}
-	free(tab);
+	free(cpy);
+	cpy = NULL;
 }
 
 /*
@@ -44,7 +45,7 @@ void	free_tab(void **tab)
 **	returns size of 2d array.
 */
 
-int tab_size(const void **tab)
+int		tab_size(const void **tab)
 {
 	unsigned int	i;
 

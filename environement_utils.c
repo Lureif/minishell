@@ -6,7 +6,7 @@
 /*   By: brjorgen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/16 02:29:33 by brjorgen          #+#    #+#             */
-/*   Updated: 2019/11/19 05:28:10 by brjorgen         ###   ########.fr       */
+/*   Updated: 2019/12/04 14:18:20 by brjorgen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 int		ret_env_var_index(char **env, char *var, int initial_pos)
 {
 	if (!*env || !var)
-		return  (-1);
+		return (-1);
 	if (initial_pos == tab_size((const void **)env))
 		return (-1);
 	if (ft_strncmp(env[initial_pos], var, ft_strlen(var)) == 0)
@@ -39,12 +39,11 @@ int		ret_env_var_index(char **env, char *var, int initial_pos)
 /*
 **	HEADER	   : minishell.h
 **	PROJ  	   : minishell
-**	NAME  	   : ret_env_var
-**	ARGS  	   : ->env_var_name : the address of the pertinent line in
-**				      envp
-**		     ->var_len : length of the argument variable
+**	NAME  	   : trim_env_var
+**	ARGS  	   : -> env_var_name : the address of the pertinent line in
+**				      			   envp
 **	DESCRIPTION:
-**	Moves the pointer at the address of env_var_name 
+**	Moves the pointer at the address of env_var_name
 **	to var_len (length of env variable name) + 1 (for the '=').
 */
 

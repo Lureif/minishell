@@ -6,11 +6,13 @@
 /*   By: brjorgen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 18:14:23 by brjorgen          #+#    #+#             */
-/*   Updated: 2019/11/19 05:28:46 by brjorgen         ###   ########.fr       */
+/*   Updated: 2019/12/14 03:19:17 by brjorgen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <signal.h>
+#include <dirent.h>
 
 /*
 **	HEADER	   : minishell.h
@@ -34,97 +36,56 @@
 **	in the parent process.
 */
 
-char	*error_codes[ERROR_CODE_NUMBER] = {
-	": Command not found.\n",
-};
-
-void	error_handler(char *process_name, int error_code)
+bool	dirp(char *pathname)
 {
-	ft_putstr_fd(process_name, 1);
-	ft_putstr_fd(error_codes[error_code], 1);
-}
+	int fd;
 
-bool	ft_parse_process_name(char **args)
-{
-	if (**args == '.' || **args == '/')
+	fd = open(pathname, O_DIRECTORY);
+	if (fd != -1)
+	{
+		close(fd);
 		return (true);
-	return (false);
-}
-
-bool	ft_process_launch_path(char ***args, char ***envp)
-{
-	if (access(*args[0], R_OK) != -1)
-	{
-		execve(*args[0], *args, *envp);
-		return (true);
-	}
-	else
-	{
-//		error_handler(*args[0], 0);
-		return (false);
-	}
-	return (true);
-}
-
-bool	ft_check_process_is_path(char ***args, char ***envp)
-{
-	if (ft_parse_process_name(*args) == true)
-	{
-		if (ft_process_launch_path(args, envp) == true)
-		{
-			return (true);
-		}
-		else
-		{
-			return (false);
-		}
 	}
 	return (false);
 }
 
-bool	ft_process_launch(char *bin_paths, char ***args, char ***envp)
+bool	dumb_check_v2(char *args, int initial)
 {
-	unsigned int	i;
-	char			**split_bin_paths;
-	char			*path;
-	int				status;    
-	pid_t			pid;
+	if (args[initial] == '\0')
+		return (true);
+	else if (args[initial] == '.'
+			|| args[initial] == '/'
+			|| ft_strcmp(args + initial, "./") == 0)
+		return (dumb_check_v2(args, initial + 1));
+	else
+		return (false);
+}
 
-	i = 0;
-	if (!bin_paths || !*args || !*envp)
+bool	ft_process_launch(char ***args, char ***envp)
+{
+	char			*p_t_e;
+	bool			p_c;
+
+	if (!args || !*args || !envp || !*envp)
+		return (false);
+	p_c = ft_path_function(&p_t_e, args, envp);
+	if (**args && dumb_check_v2(**args, 0) == true)
 	{
+		if (p_t_e && *p_t_e && !!p_c)
+			free(p_t_e);
 		return (false);
 	}
-	pid = fork();
-	split_bin_paths = NULL;
-	if (pid == 0)
+	if ((!*envp || p_c == false || p_t_e == NULL)
+		&& !parse_arg(**args) && !parse_arg(p_t_e))
 	{
-		if ((status = ft_check_process_is_path(args, envp)) == true)
-			return (true);
-		split_bin_paths = ft_strsplit(bin_paths, ':');
-		while (split_bin_paths[i])
-		{			
-			path = ft_strjoin(split_bin_paths[i], "/");
-			path = ft_strjoin(path, **args);
-			if (access(path, R_OK) == -1)
-			{
-				i++;
-			}
-			else
-			{
-				execve(path, *args, *envp);
-			}
-			free(path);
-			if ((int)i == tab_size((const void **)split_bin_paths))
-			{
-				error_handler(**args, 0);
-				break ;
-			}
-		}
+		if (p_t_e != NULL)
+			error_handler("(internal) process_launcher", undefined_path);
+		else if (**args && !parse_arg(**args))
+			error_handler(**args, command_not_found);
+		return (false);
 	}
-	else
-	{
-		waitpid(pid, &status, WUNTRACED);
-	}
+	if ((**args && p_c && p_t_e) || (parse_arg(**args) && !dirp(**args)))
+		ft_fork_actions(args, envp, p_t_e);
+	free(p_t_e);
 	return (true);
 }
